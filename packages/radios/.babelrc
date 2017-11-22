@@ -1,0 +1,9 @@
+{
+  "presets": [
+    "urban"
+  ],
+  "plugins": [
+    "babel-plugin-styled-components",
+    "transform-react-require"
+  ]
+}
