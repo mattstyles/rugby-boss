@@ -1,6 +1,8 @@
 
 import oc from 'open-color'
-import styled from 'styled-components'
+import styled, {ThemeProvider} from 'styled-components'
+
+import {theme, App} from '../src'
 
 const WIDTH = 320
 const HEIGHT = 568
@@ -11,7 +13,7 @@ const BG = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(30deg, ${oc.orange[3]}, ${oc.red[7]} 75%);
+  background: ${theme.gradients.blue};
   z-index: 0;
 `
 
@@ -28,6 +30,7 @@ const Frame = styled.div`
 `
 
 const Body = styled.div`
+  display: flex;
   position: relative;
   width: ${WIDTH}px;
   height: ${HEIGHT}px;
@@ -38,10 +41,16 @@ const Body = styled.div`
 `
 
 const Base = ({children}) => (
-  <div>
-    <BG />
-    <Frame><Body>{children}</Body></Frame>
-  </div>
+  <ThemeProvider theme={theme}>
+    <div>
+      <BG />
+      <Frame>
+        <Body>
+          {children}
+        </Body>
+      </Frame>
+    </div>
+  </ThemeProvider>
 )
 
 export default Base
