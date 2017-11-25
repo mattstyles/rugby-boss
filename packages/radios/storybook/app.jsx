@@ -31,7 +31,7 @@ const AppHeader = () => (
 )
 const AppFooter = () => (
   <Footer>
-    <Title>Title</Title>
+    <Title>Footer</Title>
   </Footer>
 )
 

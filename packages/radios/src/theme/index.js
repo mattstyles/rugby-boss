@@ -77,7 +77,7 @@ export const theme = {
     }
   },
 
-  gradients: {
+  gradient: {
     background: `radial-gradient(
       circle at 50% 90%,
       rgba(0, 0, 0, 0.05) 0,

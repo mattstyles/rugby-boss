@@ -1,8 +1,10 @@
 
-import {prop} from 'lodash/fp'
 import styled from 'styled-components'
+import oc from 'open-color'
 
-const getType = key => prop(`theme.type.${key}`)
+import {getTheme, modTheme} from './theme/helpers'
+
+const getType = key => getTheme(`type.${key}`)
 
 export const H1 = styled.h1`
   font-family: ${getType('heading')};
@@ -24,9 +26,8 @@ export const H3 = styled.h3`
   font-family: ${getType('heading')};
   font-weight: 500;
   color: ${getType('color.heading')};
-  ${getType('h1')}
+  ${getType('h3')}
   margin-top: 0;
-  text-transform: uppercase;
 `
 
 export const P = styled.p`
@@ -35,5 +36,26 @@ export const P = styled.p`
   color: ${getType('color.main')};
   ${getType('content')}
   margin-top: 0;
-  margin-bottom: ${props => props.theme.type.size.base * 0.6}rem;
+  margin-bottom: ${modTheme('type.size.base', 0.65)}rem;
+`
+
+export const TextBlock = styled.div`
+  p + h1,
+  p + h2,
+  p + h3 {
+    margin-top: ${modTheme('type.size.base', 2)}rem;
+  }
+`
+
+export const BlockQuote = styled.div`
+  font-family: ${getType('main')};
+  font-weight: 400;
+  color: ${getType('color.main')};
+  ${getType('content')};
+  margin-top: ${getTheme('basePadding')}rem;
+  margin-bottom: ${getTheme('basePadding')}rem;
+  padding: ${getTheme('basePadding')}rem;
+  background: ${oc.white};
+  border-radius: ${getTheme('borderRadius')}px;
+  border-left: ${getTheme('borderRadius')}px solid ${getTheme('color.primary')};
 `
