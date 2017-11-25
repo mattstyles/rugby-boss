@@ -1,7 +1,7 @@
 
 import {configure, addDecorator} from '@storybook/react'
 
-import Base from './base'
+import Base from '../storybook/base'
 import {setGlobalStyling} from '../src'
 
 setGlobalStyling()

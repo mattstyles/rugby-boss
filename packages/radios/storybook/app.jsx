@@ -21,7 +21,7 @@ const Footer = styled.footer`
   background: ${oc.white};
   color: ${oc.gray[8]};
   border-top: 1px solid ${oc.gray[3]};
-  padding: 0 16px;
+  padding: 0 ${props => props.theme.basePadding}rem;
 `
 
 const AppHeader = () => (

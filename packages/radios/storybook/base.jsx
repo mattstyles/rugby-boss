@@ -2,7 +2,7 @@
 import oc from 'open-color'
 import styled, {ThemeProvider} from 'styled-components'
 
-import {theme, App} from '../src'
+import {theme} from '../src'
 
 const WIDTH = 320
 const HEIGHT = 568

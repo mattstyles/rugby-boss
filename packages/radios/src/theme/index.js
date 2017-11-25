@@ -1,27 +1,44 @@
 
 import oc from 'open-color'
+import Shevy from 'shevyjs'
+import {pick} from 'lodash'
 
-const theme = {
-  baseLineHeight: 1.6,
+const baseLineHeight = 1.6
+const baseFontSize = 1.4
+
+const shevy = new Shevy({
+  baseFontScale: 'minorThird',
+  baseLineHeight: baseLineHeight,
+  baseFontSize: `${baseFontSize}rem`,
+  proximity: true
+})
+
+export const theme = {
+  baseLineHeight,
   basePadding: 1.2,
   borderRadius: 3,
 
   baseIconSize: 6,
   baseIconTextSize: 1.6,
 
+  layout: {
+    headerHeight: 4.4,
+    footerHeight: 4.4
+  },
+
   transition: {
     main: 150,
     spin: 1250
   },
 
-  fonts: {
+  type: {
     fallback: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;`,
     main: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;`,
     heading: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;`,
     onLightShadow: `0 1px rgba(0, 0, 0, 0.2)`,
 
     size: {
-      base: 1.4,
+      base: baseFontSize,
       small: 1.2,
       vsmall: 1.1
     },
@@ -29,7 +46,18 @@ const theme = {
     color: {
       main: oc.gray[8],
       heading: oc.gray[7]
-    }
+    },
+
+    ...pick(shevy, [
+      'body',
+      'content',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6'
+    ])
   },
 
   color: {
@@ -76,5 +104,3 @@ const theme = {
     sunset: `linear-gradient(30deg, ${oc.orange[3]}, ${oc.red[7]} 75%)`
   }
 }
-
-export default theme
