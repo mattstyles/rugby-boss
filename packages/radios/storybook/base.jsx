@@ -13,7 +13,12 @@ const BG = styled.div`
   top: 0;
   right: 0;
   bottom: 0;
-  background: ${theme.gradient.primary};
+  background: radial-gradient(
+    circle at 50% 90%,
+    rgb(64, 66, 70) 0,
+    rgb(26, 28, 32) 60%,
+    rgb(18, 18, 20) 100%
+  );
   z-index: 0;
 `
 

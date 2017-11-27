@@ -39,11 +39,21 @@ export const P = styled.p`
   margin-bottom: ${modTheme('type.size.base', 0.65)}rem;
 `
 
+export const Text = styled.span`
+  font-family: ${getType('main')};
+  font-weight: 400;
+  color: ${getType('color.main')};
+  ${getType('content')}
+`
+
 export const TextBlock = styled.div`
   p + h1,
   p + h2,
   p + h3 {
     margin-top: ${modTheme('type.size.base', 2)}rem;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
   }
 `
 

@@ -24,8 +24,8 @@ storiesOf('type', module)
   ))
   .add('text block', () => (
     <View isPadded>
-      <BlockQuote>TextBlock adds top margins to better align titles in a body of copy.</BlockQuote>
       <TextBlock>
+        <BlockQuote>TextBlock adds top margins to better align titles in a body of copy.</BlockQuote>
         <H1>Header for this content</H1>
         <P>Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime.</P>
         <P>Do you believe that shit?</P>

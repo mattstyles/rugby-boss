@@ -61,16 +61,16 @@ export const theme = {
   },
 
   color: {
-    primary: oc.green[5],
-    primaryDark: oc.green[7],
-    primaryLight: oc.green[4],
+    primary: oc.blue[5],
+    primaryDark: oc.blue[7],
+    primaryLight: oc.blue[4],
     header: oc.gray[8],
     error: oc.red[8],
 
     button: {
-      primary: oc.green[5],
-      primaryHover: oc.green[7],
-      primarySelect: oc.green[8],
+      primary: oc.blue[5],
+      primaryHover: oc.blue[7],
+      primarySelect: oc.blue[8],
       transparent: 'transparent',
       transparentHover: 'rgba(0, 0, 0, 0.1)',
       transparentSelect: 'rgba(0, 0, 0, 0.4)'
