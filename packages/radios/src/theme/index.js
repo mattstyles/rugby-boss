@@ -95,14 +95,14 @@ export const theme = {
     )`,
     primaryRadial: `radial-gradient(
       circle at 50% 90%,
-      ${oc.green[5]} 0,
-      ${oc.green[7]} 60%,
-      ${oc.green[8]} 100%
+      ${oc.blue[5]} 0,
+      ${oc.blue[7]} 60%,
+      ${oc.blue[8]} 100%
     )`,
-    primary: `linear-gradient(30deg, ${oc.green[8]}, ${oc.green[4]})`,
-    primaryShift: `linear-gradient(30deg, ${oc.teal[5]}, ${oc.green[4]})`,
-    primaryLight: `linear-gradient(30deg, ${oc.lime[3]}, ${oc.green[7]})`,
-    primaryDark: `linear-gradient(30deg, ${oc.green[7]}, ${oc.green[8]})`,
+    primary: `linear-gradient(30deg, ${oc.blue[8]}, ${oc.blue[4]})`,
+    primaryShift: `linear-gradient(30deg, ${oc.cyan[5]}, ${oc.blue[4]})`,
+    primaryLight: `linear-gradient(30deg, ${oc.indigo[3]}, ${oc.blue[7]})`,
+    primaryDark: `linear-gradient(30deg, ${oc.violet[7]}, ${oc.blue[8]})`,
     blue: `linear-gradient(30deg, ${oc.violet[5]}, ${oc.blue[6]})`,
     sunset: `linear-gradient(30deg, ${oc.orange[3]}, ${oc.red[7]} 75%)`
   }
