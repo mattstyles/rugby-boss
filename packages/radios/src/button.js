@@ -16,7 +16,7 @@ export const BaseButton = styled.button`
   border: none;
   border-radius: ${getTheme('borderRadius')}px;
   cursor: pointer;
-  transition: background ${getTheme('transition.main')}ms, text-shadow ${getTheme('transition.main')}ms;
+  transition: background ease-out ${getTheme('transition.main')}ms, text-shadow ${getTheme('transition.main')}ms;
   text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
   text-transform: ${props => props.shouty && 'uppercase'};
   letter-spacing: ${props => props.shouty && '0.5px'};

@@ -18,7 +18,7 @@ export const theme = {
   basePadding: 1.2,
   borderRadius: 3,
 
-  baseIconSize: 6,
+  baseIconSize: 4.4,
   baseIconTextSize: 1.6,
 
   layout: {

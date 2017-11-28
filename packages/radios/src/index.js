@@ -10,6 +10,8 @@ export {default as View} from './view'
 export * from './block'
 export * from './button'
 export * from './buttongroup'
+export * from './icon'
+export * from './icons'
 
 export * from './type'
 

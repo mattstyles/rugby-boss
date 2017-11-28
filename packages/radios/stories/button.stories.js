@@ -4,7 +4,7 @@ import {action} from '@storybook/addon-actions'
 import oc from 'open-color'
 
 import {addonApp} from '../storybook/app'
-import {View, Button, Block, ButtonGroup, GroupButton, H3} from '../src'
+import {View, Button, Block, ButtonGroup, GroupButton, H3, Icon} from '../src'
 
 const TypedButton = ({type}) => {
   return (
@@ -20,6 +20,15 @@ const TypedButton = ({type}) => {
   )
 }
 
+const IconGroupButton = GroupButton.extend`
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  line-height: normal;
+
+  i {
+    margin: auto;
+  }
+`
 const BackedButtonGroup = ButtonGroup.extend`
   background: ${oc.white};
 `
@@ -52,8 +61,18 @@ storiesOf('button', module)
   .add('button group', () => (
     <View>
       <ButtonGroup>
-        <GroupButton>A</GroupButton>
-        <GroupButton>B</GroupButton>
+        <IconGroupButton>
+          <Icon
+            icon='HOME'
+            size='2.4'
+          />
+        </IconGroupButton>
+        <IconGroupButton>
+          <Icon
+            icon='SETTINGS'
+            size='2.4'
+          />
+        </IconGroupButton>
       </ButtonGroup>
       <Block>
         <H3>Rounded edges</H3>
