@@ -8,6 +8,7 @@ export {theme}
 export {default as App} from './app'
 export {default as View} from './view'
 export * from './block'
+export * from './button'
 
 export * from './type'
 

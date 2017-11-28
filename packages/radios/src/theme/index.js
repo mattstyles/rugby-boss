@@ -73,7 +73,10 @@ export const theme = {
       primarySelect: oc.blue[8],
       transparent: 'transparent',
       transparentHover: 'rgba(0, 0, 0, 0.1)',
-      transparentSelect: 'rgba(0, 0, 0, 0.4)'
+      transparentSelect: 'rgba(0, 0, 0, 0.4)',
+      error: oc.red[7],
+      errorHover: oc.red[8],
+      errorSelect: oc.red[9]
     }
   },
 
