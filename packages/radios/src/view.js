@@ -7,6 +7,7 @@ const View = styled.div`
   flex-direction: ${props => props.flex && 'column'};
   flex: 1;
   overflow-y: scroll;
+  overflow-x: hidden;
   padding: ${props => props.isPadded && `${props.theme.basePadding}rem`}
 `
 View.propTypes = {

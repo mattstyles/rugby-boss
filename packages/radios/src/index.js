@@ -12,6 +12,7 @@ export * from './button'
 export * from './buttongroup'
 export * from './icon'
 export * from './icons'
+export * from './taskbar'
 
 export * from './type'
 

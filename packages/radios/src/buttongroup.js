@@ -8,6 +8,7 @@ import {TransparentButton} from './'
 export const GroupButton = TransparentButton.extend`
   flex: 1;
   border-radius: 0;
+  padding: 0;
 
   :hover {
     svg {

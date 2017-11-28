@@ -62,6 +62,7 @@ export const TransparentButton = BaseButton.extend`
 
   :hover {
     background: ${getColor('button.transparentHover')};
+    text-shadow: none;
   }
 
   :active {

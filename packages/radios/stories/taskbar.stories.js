@@ -3,10 +3,10 @@ import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
 
 import {AppHeader, Footer} from '../storybook/app'
-import {App, View, Text, ButtonGroup, GroupButton, H1, Icon} from '../src'
+import {App, View, Text, GroupButton, H1, P, Icon, Taskbar} from '../src'
 import {getTheme, getColor} from '../src/theme/helpers'
 
-const TaskBar = Footer.extend`
+const FooterFill = Footer.extend`
   height: auto;
   padding: 0;
 `
@@ -22,12 +22,6 @@ const TaskbarButton = GroupButton.extend`
     margin: auto;
   }
 
-  span {
-    transition: color ease-out ${getTheme('transition.main')}ms;
-    margin: auto;
-    display: block;
-  }
-
   :hover span {
     text-shadow: none;
     color: ${getColor('primary')};
@@ -36,18 +30,78 @@ const TaskbarButton = GroupButton.extend`
 const TaskbarText = Text.extend`
   font-size: ${getTheme('type.size.vsmall')}rem;
   font-weight: 500;
-  margin-bottom: 0;
+  transition: color ease-out ${getTheme('transition.main')}ms;
+  margin: auto 0;
+  display: block;
 `
 
+const tasks = [
+  {
+    icon: 'HOME',
+    text: 'Home',
+    action: action('home')
+  },
+  {
+    icon: 'SETTINGS',
+    text: 'Settings',
+    action: action('settings')
+  },
+  {
+    icon: 'CHECK',
+    text: 'Check',
+    action: action('check')
+  },
+  {
+    icon: 'PLAY',
+    text: 'Play',
+    action: action('play')
+  }
+]
+
+const iconTasks = [
+  {
+    icon: 'HOME',
+    action: action('home')
+  },
+  {
+    icon: 'SETTINGS',
+    action: action('settings')
+  },
+  {
+    icon: 'CHECK',
+    action: action('check')
+  },
+  {
+    icon: 'PLAY',
+    action: action('play')
+  }
+]
+
+const textTasks = [
+  {
+    text: 'Today',
+    action: action('today')
+  },
+  {
+    text: 'Calendar',
+    action: action('calendar')
+  },
+  {
+    text: 'Inbox',
+    action: action('inbox')
+  }
+]
+
 storiesOf('taskbar', module)
-  .add('footer', () => (
+  .add('with children', () => (
     <App>
       <AppHeader />
       <View isPadded>
-        <H1>Taskbar Example</H1>
+        <H1>Taskbar children</H1>
+        <P>A taskbar component can be passed buttons as children. This is useful if you have some funky buttons to use in the taskbar.</P>
       </View>
-      <TaskBar>
-        <ButtonGroup>
+      <FooterFill>
+        <Taskbar>
           <TaskbarButton onClick={action('home')}>
             <Icon
               icon='HOME'
@@ -62,7 +116,43 @@ storiesOf('taskbar', module)
             />
             <TaskbarText>Settings</TaskbarText>
           </TaskbarButton>
-        </ButtonGroup>
-      </TaskBar>
+        </Taskbar>
+      </FooterFill>
+    </App>
+  ))
+  .add('with tasks', () => (
+    <App>
+      <AppHeader />
+      <View isPadded>
+        <H1>Taskbar example</H1>
+        <P>Tasks can also be passed to as an array to a taskbar component where they will be styled appropriately.</P>
+      </View>
+      <FooterFill>
+        <Taskbar tasks={tasks} />
+      </FooterFill>
+    </App>
+  ))
+  .add('icons only', () => (
+    <App>
+      <AppHeader />
+      <View isPadded>
+        <H1>Taskbar example</H1>
+        <P>Only pass icon type if you don’t need text.</P>
+      </View>
+      <FooterFill>
+        <Taskbar tasks={iconTasks} />
+      </FooterFill>
+    </App>
+  ))
+  .add('text only', () => (
+    <App>
+      <AppHeader />
+      <View isPadded>
+        <H1>Taskbar example</H1>
+        <P>Task buttons can also be only text, just omit the icon type reference from the tasks array.</P>
+      </View>
+      <FooterFill>
+        <Taskbar tasks={textTasks} />
+      </FooterFill>
     </App>
   ))
