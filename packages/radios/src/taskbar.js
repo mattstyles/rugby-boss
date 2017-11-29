@@ -45,12 +45,12 @@ const renderTasks = tasks => tasks
     action
   }) => (
     <TaskbarButton
-      key={id || icon}
+      key={id || icon || text}
       onClick={action}
     >
       {icon && <Icon
         icon={icon}
-        size='2.1'
+        size={2.1}
       />}
       {text && <TaskbarText>{text}</TaskbarText>}
     </TaskbarButton>

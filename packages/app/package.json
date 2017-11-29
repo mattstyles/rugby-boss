@@ -37,7 +37,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattstyles/rugby-manager.git"
+    "url": "git+https://github.com/mattstyles/rugby-boss.git"
   },
   "keywords": [
     "raid",
@@ -48,9 +48,9 @@
   "author": "mattstyles",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattstyles/rugby-manager/issues"
+    "url": "https://github.com/mattstyles/rugby-boss/issues"
   },
-  "homepage": "https://mattstyles.github.io/rugby-manager",
+  "homepage": "https://mattstyles.github.io/rugby-boss",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-plugin-lodash": "^3.2.11",
