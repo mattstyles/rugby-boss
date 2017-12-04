@@ -23,24 +23,29 @@ const OPACITY_PRESET = {
   damping: 25
 }
 
-const mapStyles = child => ({
+const mapStyles = ({
+  translatePreset = TRANSLATE_PRESET,
+  opacityPreset = OPACITY_PRESET
+}) => child => ({
   key: child.key,
   style: {
-    x: spring(0, TRANSLATE_PRESET),
-    opacity: spring(100, OPACITY_PRESET)
+    x: spring(0, translatePreset),
+    opacity: spring(100, opacityPreset)
   }
 })
 
-const mapChildren = children => ({key, style: {x, opacity}}) => (
+const mapChildren = (children, styles) => ({key, style: {x, opacity}}) => (
   <AppearElement
     {...{key, x, opacity}}
+    styles={styles}
   >{children}</AppearElement>
 )
 
 const AppearElement = styled.div.attrs({
-  style: ({x, background, opacity}) => ({
+  style: ({x, opacity, styles}) => ({
     transform: `translateX(${x}%)`,
-    opacity: `${opacity}`
+    opacity: `${opacity}`,
+    ...styles
   })
 })`
   position: absolute;
@@ -51,26 +56,36 @@ const AppearElement = styled.div.attrs({
 export const Appear = ({
   appearDistance,
   containerStyles,
+  itemStyles,
+  translatePreset,
+  opacityPreset,
   children
 }) => (
   <TransitionMotion
     willLeave={willLeave(appearDistance)}
     willEnter={willEnter(appearDistance)}
-    styles={React.Children.map(children, mapStyles)}
+    styles={React.Children.map(children, mapStyles({
+      translatePreset,
+      opacityPreset
+    }))}
   >
     {styles => {
       return (
         <div style={containerStyles}>
-          {styles.map(mapChildren(children))}
+          {styles.map(mapChildren(children, itemStyles))}
         </div>
       )
     }}
   </TransitionMotion>
 )
 Appear.defaultProps = {
-  appearDistance: 200
+  appearDistance: 200,
+  itemStyles: {},
+  opacityPreset: null,
+  translatePreset: null
 }
 Appear.propTypes = {
   appearDistance: PropTypes.number,
-  containerStyles: PropTypes.object.isRequired
+  containerStyles: PropTypes.object.isRequired,
+  itemStyles: PropTypes.object
 }
