@@ -31,8 +31,8 @@
     "babel-plugin-styled-components": "^1.3.0",
     "babel-plugin-transform-react-require": "^1.0.1",
     "babel-preset-urban": "^1.0.1",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
     "standard": "^10.0.3",
     "tape": "^4.8.0"
@@ -41,8 +41,14 @@
     "classnames": "^2.2.5",
     "open-color": "^1.5.1",
     "prop-types": "^15.6.0",
+    "raid": "^2.10.1",
+    "raid-addons": "^2.11.0",
+    "raid-fl": "^2.12.0",
+    "react-motion": "^0.5.2",
+    "react-transition-group": "^2.3.0-beta.0",
     "shevyjs": "^1.1.0",
     "styled-components": "^2.2.3",
+    "velocity-react": "^1.3.3",
     "vkey": "^1.0.1"
   }
 }

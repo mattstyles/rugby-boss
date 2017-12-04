@@ -1,5 +1,6 @@
 
 import styled from 'styled-components'
+import {CSSTransition} from 'react-transition-group'
 
 import {Text} from './type'
 import {ButtonGroup, GroupButton} from './buttongroup'
@@ -62,8 +63,13 @@ export const Taskbar = ({
   children
 }) => (
   <StyledBar className={className}>
-    <ButtonGroup>
-      {children || renderTasks(tasks)}
-    </ButtonGroup>
+    <CSSTransition
+      timeout={1000}
+      classNames='fade'
+    >
+      <ButtonGroup>
+        {children || renderTasks(tasks)}
+      </ButtonGroup>
+    </CSSTransition>
   </StyledBar>
 )

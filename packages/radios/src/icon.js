@@ -48,7 +48,10 @@ Icon.defaultProps = {
 }
 Icon.propTypes = {
   icon: PropTypes.string,
-  size: PropTypes.number,
+  size: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
+  ]),
   color: PropTypes.string,
   hoverColor: PropTypes.string
 }

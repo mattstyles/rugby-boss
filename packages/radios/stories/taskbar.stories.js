@@ -105,14 +105,14 @@ storiesOf('taskbar', module)
           <TaskbarButton onClick={action('home')}>
             <Icon
               icon='HOME'
-              size='2.1'
+              size={2.1}
             />
             <TaskbarText>Home</TaskbarText>
           </TaskbarButton>
           <TaskbarButton onClick={action('settings')}>
             <Icon
               icon='SETTINGS'
-              size='2.1'
+              size={2.1}
             />
             <TaskbarText>Settings</TaskbarText>
           </TaskbarButton>

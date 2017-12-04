@@ -16,6 +16,8 @@ export * from './taskbar'
 
 export * from './type'
 
+export * from './transitions/appear'
+
 export const setGlobalStyling = () => {
   injectGlobal`
     html {
