@@ -69,3 +69,9 @@ export const BlockQuote = styled.div`
   border-radius: ${getTheme('borderRadius')}px;
   border-left: ${getTheme('borderRadius')}px solid ${getTheme('color.primary')};
 `
+
+export const Code = styled.code`
+  font-family: ${getType('monospace')};
+  color: ${getType('color.main')};
+  ${getType('content')};
+`

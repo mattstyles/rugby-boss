@@ -30,14 +30,14 @@ const mapStyles = ({
   key: child.key,
   style: {
     x: spring(0, translatePreset),
-    opacity: spring(100, opacityPreset)
+    opacity: spring(1, opacityPreset)
   }
 })
 
 const mapChildren = (children, styles) => ({key, style: {x, opacity}}) => (
   <AppearElement
-    {...{key, x, opacity}}
     styles={styles}
+    {...{key, x, opacity}}
   >{children}</AppearElement>
 )
 

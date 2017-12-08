@@ -1,10 +1,17 @@
 
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
+import styled from 'styled-components'
 
 import {AppHeader, Footer} from '../storybook/app'
-import {App, View, Icon, Taskbar, Appear} from '../src'
+import {App, View, Icon, Taskbar, P, Code, Button,
+  Appear,
+  AnimateGroup,
+  Fade,
+  ScrollUp,
+  SlideUp
+} from '../src'
 
 const FooterFill = Footer.extend`
   height: 41px;
@@ -49,7 +56,7 @@ class AppearWrapper extends Component {
     const {flag} = this.state
     return (
       <div>
-        <button onClick={this.onClick}>Click me</button>
+        <Button primary onClick={this.onClick}>Click me</Button>
         <Appear
           appearDistance={200}
           containerStyles={{
@@ -58,7 +65,10 @@ class AppearWrapper extends Component {
             height: '40px'
           }}
         >
-          <Icon key={`i${flag}`} icon={flag ? 'HOME' : 'SETTINGS'} size={4} />
+          {flag
+            ? <Icon key='home' icon={'HOME'} size={4} />
+            : <Icon key='settings' icon={'SETTINGS'} size={4} />
+          }
         </Appear>
       </div>
     )
@@ -96,7 +106,7 @@ class AppearTimer extends Component {
     const {flag} = this.state
     return (
       <Appear
-        appearDistance={100}
+        appearDistance={200}
         containerStyles={{
           position: 'relative',
           width: '100%',
@@ -120,15 +130,118 @@ class AppearTimer extends Component {
   }
 }
 
+const ReplaceMain = styled.div`
+  height: 40px;
+  padding: 12px;
+`
+
+class Replace extends Component {
+  state = {
+    flag: false
+  }
+
+  onClick = () => this.setState(s => ({
+    ...s,
+    flag: !s.flag
+  }))
+
+  render () {
+    const {flag} = this.state
+    const {onRender, text} = this.props
+    return (
+      <Fragment>
+        <Button primary onClick={this.onClick}>{text}</Button>
+        <ReplaceMain>
+          <AnimateGroup>
+            {onRender(flag)}
+          </AnimateGroup>
+        </ReplaceMain>
+      </Fragment>
+    )
+  }
+}
+
+class FadeTimer extends Component {
+  state = {
+    flag: false
+  }
+
+  timeout = null
+
+  timeoutTime = 5000
+
+  componentDidMount = () => {
+    this.onTick()
+  }
+
+  componentWillUnmount = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout)
+    }
+  }
+
+  onTick = () => {
+    this.setState(state => ({
+      ...state,
+      flag: !state.flag
+    }))
+    this.timeout = setTimeout(this.onTick, this.timeoutTime)
+  }
+
+  render () {
+    const {flag} = this.state
+    return (
+      <AnimateGroup>
+        <SlideUp in key={`i${flag}`}>
+          <Taskbar tasks={getTasks(flag)} />
+        </SlideUp>
+      </AnimateGroup>
+    )
+  }
+}
+
 storiesOf('transition', module)
   .add('appear', () => (
     <App>
       <AppHeader />
       <View isPadded>
+        <P>Animations here use <Code>react-motion</Code> to provide spring based transitions.</P>
         <AppearWrapper />
       </View>
       <FooterFill>
         <AppearTimer />
+      </FooterFill>
+    </App>
+  ))
+  .add('transitions', () => (
+    <App>
+      <AppHeader />
+      <View isPadded>
+        <P>These animations use <Code>react-transtion</Code> and <Code>transition-group</Code> to provide <em>CSS-like</em> transitions.</P>
+        <Replace
+          text='Fade'
+          onRender={flag => flag
+            ? <Fade in key='home' styles={{width: '4rem', height: '4rem'}}><Icon icon={'HOME'} size={4} /></Fade>
+            : <Fade in key='settings'><Icon icon={'SETTINGS'} size={4} /></Fade>
+          }
+        />
+        <Replace
+          text='Scroll up'
+          onRender={flag => flag
+            ? <ScrollUp in key='home'><Icon icon={'HOME'} size={4} /></ScrollUp>
+            : <ScrollUp in key='settings'><Icon icon={'SETTINGS'} size={4} /></ScrollUp>
+          }
+        />
+        <Replace
+          text='Slide Up'
+          onRender={flag => flag
+            ? <SlideUp in key='home'><Icon icon={'HOME'} size={4} /></SlideUp>
+            : <SlideUp in key='settings'><Icon icon={'SETTINGS'} size={4} /></SlideUp>
+          }
+        />
+      </View>
+      <FooterFill>
+        <FadeTimer />
       </FooterFill>
     </App>
   ))
