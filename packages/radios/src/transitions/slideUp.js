@@ -10,10 +10,10 @@ const defaultStyle = (duration = DEFAULT_DURATION) => ({
   opacity: 0
 })
 
-const transitionStyles = {
+const transitionStyles = distance => ({
   entering: {
     opacity: 0,
-    transform: `translateY(20px)`
+    transform: `translateY(${distance})`
   },
   entered: {
     opacity: 1,
@@ -21,33 +21,36 @@ const transitionStyles = {
   },
   exiting: {
     opacity: 0,
-    transform: `translateY(20px)`
+    transform: `translateY(${distance})`
   },
   exited: {
     opacity: 0,
-    transform: `translateY(20px)`
+    transform: `translateY(${distance})`
   }
-}
+})
 
 export const SlideUp = ({
   in: inProp,
   duration,
+  distance,
   children
 }) => (
   <Animate
     in={inProp}
     timeout={duration}
     defaultStyle={defaultStyle(duration)}
-    transitionStyles={transitionStyles}
+    transitionStyles={transitionStyles(distance)}
   >
     {children}
   </Animate>
 )
 SlideUp.propTypes = {
   in: PropTypes.bool,
-  duration: PropTypes.number
+  duration: PropTypes.number,
+  distance: PropTypes.string
 }
 SlideUp.defaultProps = {
   in: true,
-  duration: DEFAULT_DURATION
+  duration: DEFAULT_DURATION,
+  distance: '20px'
 }
