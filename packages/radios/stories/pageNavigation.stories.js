@@ -2,10 +2,11 @@
 import React, {Component} from 'react'
 import {storiesOf} from '@storybook/react'
 import createHistory from 'history/createMemoryHistory'
+import oc from 'open-color'
 import {Signal} from 'raid'
 import {Navigator, createActions} from 'raid-navigator'
 
-import {AnimateGroup, Fade, H1, Button, View} from '../src'
+import {AnimateGroup, Fade, PageIn, H1, Button, View} from '../src'
 import {AppHeader} from '../storybook/app'
 
 const signal = Signal.of()
@@ -42,14 +43,14 @@ class Navigation extends Component {
 }
 
 const RootView = () => (
-  <View isPadded>
+  <View isPadded style={{background: oc.gray[1], height: '100%', boxSizing: 'border-box'}}>
     <H1>Root</H1>
     <Button primary onClick={e => actions.push('/child')}>Settings</Button>
   </View>
 )
 
 const ChildView = () => (
-  <View isPadded>
+  <View isPadded style={{background: oc.gray[1], height: '100%', boxSizing: 'border-box'}}>
     <H1>Child View</H1>
     <Button primary onClick={e => actions.back()}>Back</Button>
   </View>
@@ -57,12 +58,12 @@ const ChildView = () => (
 
 storiesOf('navigator', module)
   .add('page transition', () => (
-    <View>
+    <View flex>
       <AppHeader title='Page fade transition' />
-      <AnimateGroup styles={{flex: 1}}>
+      <AnimateGroup styles={{width: '100%', height: '100%'}}>
         <Navigation>
-          <Fade route='/'><RootView route='/' /></Fade>
-          <Fade route='/child'><ChildView route='/child' /></Fade>
+          <Fade key='root' route='/'><RootView /></Fade>
+          <PageIn key='child' route='/child'><ChildView /></PageIn>
         </Navigation>
       </AnimateGroup>
     </View>

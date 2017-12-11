@@ -82,8 +82,8 @@ export const AnimateGroup = ({
   styles,
   children
 }) => (
-  <Group style={{styles}}>
-    <TransitionGroup>
+  <Group style={styles}>
+    <TransitionGroup style={styles}>
       {children}
     </TransitionGroup>
   </Group>
