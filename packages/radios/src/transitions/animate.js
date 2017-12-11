@@ -79,9 +79,10 @@ Animate.defaultProps = {
 }
 
 export const AnimateGroup = ({
+  styles,
   children
 }) => (
-  <Group>
+  <Group style={{styles}}>
     <TransitionGroup>
       {children}
     </TransitionGroup>

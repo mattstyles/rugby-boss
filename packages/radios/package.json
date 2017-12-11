@@ -31,6 +31,8 @@
     "babel-plugin-styled-components": "^1.3.0",
     "babel-plugin-transform-react-require": "^1.0.1",
     "babel-preset-urban": "^1.0.1",
+    "history": "^4.7.2",
+    "raid-navigator": "^2.12.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",

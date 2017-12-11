@@ -24,9 +24,9 @@ export const Footer = styled.footer`
   padding: 0 ${props => props.theme.basePadding}rem;
 `
 
-export const AppHeader = () => (
+export const AppHeader = ({title = 'Title'}) => (
   <Header>
-    <Title>Title</Title>
+    <Title>{title}</Title>
   </Header>
 )
 export const AppFooter = () => (
