@@ -16,7 +16,7 @@ const defaultStyle = (duration = DEFAULT_DURATION) => ({
 const transitionStyles = distance => ({
   entering: {
     opacity: 1,
-    transform: `translateX(${distance})`
+    transform: `translateX(-${distance})`
   },
   entered: {
     opacity: 1,
@@ -24,16 +24,16 @@ const transitionStyles = distance => ({
   },
   exiting: {
     opacity: 1,
-    transform: `translateX(-100px)`,
+    transform: `translateX(100px)`,
     transitionTimingFunction: 'ease-in'
   },
   exited: {
     opacity: 1,
-    transform: `translateX(-100px)`
+    transform: `translateX(100px)`
   }
 })
 
-export const PageIn = ({
+export const PageOut = ({
   in: inProp,
   duration,
   distance,
@@ -48,12 +48,12 @@ export const PageIn = ({
     {children}
   </Animate>
 )
-PageIn.propTypes = {
+PageOut.propTypes = {
   in: PropTypes.bool,
   duration: PropTypes.number,
   distance: PropTypes.string
 }
-PageIn.defaultProps = {
+PageOut.defaultProps = {
   in: true,
   duration: DEFAULT_DURATION,
   distance: '100%'
