@@ -8,7 +8,6 @@ import {Signal} from 'raid'
 
 import {Navigator, createActions} from '../src/navigator/index.js'
 
-import {PageTransition, PageGroup, childFactory} from '../src/transitions/page'
 import {AnimateGroup, PageIn, PageOut, Fade, H1, Button, View} from '../src'
 import {AppHeader} from '../storybook/app'
 
@@ -33,6 +32,13 @@ signal.register((state, event) => {
   }
   return state
 })
+
+const getTransition = t => {
+  if (t === 'PageIn') return PageIn
+  if (t === 'PageOut') return PageOut
+  console.error('oh dear')
+  return Fade
+}
 
 const Group = styled(TransitionGroup)`
   width: 100%;
@@ -152,26 +158,24 @@ class NavigationTransition extends Component {
         navigation={this.state.navigation}
         history={history}
         storage={null}
-        Component={PageGroup}
+        Component={Group}
         ComponentProps={{
-          childFactory: childFactory(transition)
+          childFactory: childFactoryCreator(transition)
         }}
       >
         {this.props.children}
-        <PageTransition
+        <Trans
           key='root'
           route='/'
           transition={transition}
         >
           <RootView />
-        </PageTransition>
-        <PageTransition
+        </Trans>
+        <Trans
           key='child'
           route='/child'
           transition={transition}
-        >
-          <ChildView />
-        </PageTransition>
+        ><ChildView /></Trans>
       </Navigator>
     )
   }
@@ -191,7 +195,7 @@ const ChildView = () => (
   </View>
 )
 
-storiesOf('navigator', module)
+storiesOf('__navigator', module)
   .add('page transition', () => (
     <View flex>
       <AppHeader title='Page fade transition' />
