@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {TransitionGroup, Transition} from 'react-transition-group'
 
-const TRANSITIONS = {
+export const TRANSITIONS = {
   FADE: 'fade',
   PAGE_IN: 'pageIn',
   PAGE_OUT: 'pageOut',
@@ -40,13 +40,54 @@ const fadeTransition = ({timeout}) => ({
   onEntering: setDelayedStyles(10, {
     opacity: 1
   }),
+  onExit: setStyles({
+    transition: `opacity ${timeout.exit}ms ease-out`
+  }),
   onExiting: setStyles({
     opacity: 0
   })
 })
 
+const pageInTransition = ({timeout}) => ({
+  onEnter: setStyles(defaultEnterStyle, {
+    transition: `transform ${timeout.enter}ms ease-out`,
+    zIndex: 10,
+    transform: `translateX(100%)`
+  }),
+  onEntering: setDelayedStyles(10, {
+    transform: `translateX(0%)`
+  }),
+  onExit: setStyles({
+    transition: `transform ${timeout.exit}ms ease-out`
+  }),
+  onExiting: setStyles({
+    zIndex: 5,
+    transform: `translateX(-25%)`
+  })
+})
+
+const pageOutTransition = ({timeout}) => ({
+  onEnter: setStyles(defaultEnterStyle, {
+    transition: `transform ${timeout.enter}ms ease-out`,
+    zIndex: 5,
+    transform: `translateX(-25%)`
+  }),
+  onEntering: setDelayedStyles(10, {
+    transform: `translateX(0%)`
+  }),
+  onExit: setStyles({
+    transition: `transform ${timeout.enter}ms ease-out`
+  }),
+  onExiting: setStyles({
+    zIndex: 10,
+    transform: `translateX(100%)`
+  })
+})
+
 const router = {
-  [TRANSITIONS.FADE]: fadeTransition
+  [TRANSITIONS.FADE]: fadeTransition,
+  [TRANSITIONS.PAGE_IN]: pageInTransition,
+  [TRANSITIONS.PAGE_OUT]: pageOutTransition
 }
 
 const getTransition = ({transition, timeout}) => {

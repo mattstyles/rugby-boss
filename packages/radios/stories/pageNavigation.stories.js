@@ -8,7 +8,7 @@ import {Signal} from 'raid'
 
 import {Navigator, createActions} from '../src/navigator/index.js'
 
-import {PageTransition, PageGroup, childFactory} from '../src/transitions/page'
+import {PageTransition, PageGroup, childFactory, TRANSITIONS} from '../src/transitions/page'
 import {AnimateGroup, PageIn, PageOut, Fade, H1, Button, View} from '../src'
 import {AppHeader} from '../storybook/app'
 
@@ -22,13 +22,13 @@ signal.register((state, event) => {
   if (event.type === '@navigator:push') {
     return {
       ...state,
-      transition: 'PageIn'
+      transition: TRANSITIONS.PAGE_IN
     }
   }
   if (event.type === '@navigator:pop') {
     return {
       ...state,
-      transition: 'PageOut'
+      transition: TRANSITIONS.PAGE_OUT
     }
   }
   return state
@@ -144,7 +144,7 @@ class NavigationTransition extends Component {
   }
 
   render () {
-    console.log(this.state)
+    console.log('::', this.state)
     const {transition} = this.state
     return (
       <Navigator
@@ -157,7 +157,7 @@ class NavigationTransition extends Component {
           childFactory: childFactory(transition)
         }}
       >
-        {this.props.children}
+        {/* {this.props.children} */}
         <PageTransition
           key='root'
           route='/'
@@ -178,14 +178,14 @@ class NavigationTransition extends Component {
 }
 
 const RootView = () => (
-  <View data='root' isPadded style={{background: oc.gray[3], height: '100%', boxSizing: 'border-box'}}>
+  <View data-name='root' isPadded style={{background: oc.gray[3], height: '100%', boxSizing: 'border-box'}}>
     <H1>Root</H1>
     <Button primary onClick={e => actions.push('/child')}>Settings</Button>
   </View>
 )
 
 const ChildView = () => (
-  <View data='child' isPadded style={{background: oc.green[1], height: '100%', boxSizing: 'border-box'}}>
+  <View data-name='child' isPadded style={{background: oc.green[1], height: '100%', boxSizing: 'border-box'}}>
     <H1>Child View</H1>
     <Button primary onClick={e => actions.back()}>Back</Button>
   </View>
