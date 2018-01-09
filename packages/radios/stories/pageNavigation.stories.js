@@ -32,23 +32,8 @@ signal.register((state, event) => {
 })
 
 class NavigationTransition extends Component {
-  constructor () {
-    super()
-
-    this.state = {
-      navigation: []
-    }
-
-    this.mapChildren = child => {
-      return (
-        <PageTransition
-          key={child.key}
-          route={child.props.route}
-        >
-          {child}
-        </PageTransition>
-      )
-    }
+  state = {
+    navigation: []
   }
 
   componentDidMount () {
@@ -60,6 +45,15 @@ class NavigationTransition extends Component {
   componentWillUnmount () {
     if (this.dispose) this.dispose()
   }
+
+  mapChildren = child => (
+    <PageTransition
+      key={child.key}
+      route={child.props.route}
+    >
+      {child}
+    </PageTransition>
+  )
 
   render () {
     console.log('::', this.state)
