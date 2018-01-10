@@ -4,32 +4,50 @@ import {storiesOf} from '@storybook/react'
 import createHistory from 'history/createMemoryHistory'
 import oc from 'open-color'
 import {Signal} from 'raid'
+import {compress, safe} from 'raid-addons'
 
-import {Navigator, createActions} from '../src/navigator/index.js'
+import {Navigator, createActions} from 'raid-navigator'
 
 import {PageTransition, PageGroup, childFactory, TRANSITIONS} from '../src/transitions/page'
-import {H1, Button, View} from '../src'
+import {H1, Block, Button, ButtonGroup, GroupButton, View} from '../src'
 import {AppHeader} from '../storybook/app'
 
 const signal = Signal.of()
 const history = createHistory()
 const actions = createActions(history)
 
-signal.register((state, event) => {
-  if (event.type === '@navigator:push') {
-    return {
-      ...state,
-      transition: TRANSITIONS.PAGE_IN
-    }
-  }
-  if (event.type === '@navigator:pop') {
-    return {
-      ...state,
-      transition: TRANSITIONS.PAGE_OUT
-    }
-  }
-  return state
-})
+const NavigationGroup = ButtonGroup.extend`
+  background: ${oc.white};
+`
+
+const events = {
+  replace: 'events:replace',
+  push: 'events:push',
+  pop: 'events:pop',
+  setTransition: 'events:setTransition'
+}
+
+signal.register(compress({
+  [events.setTransition]: safe((state, {transition}) => ({
+    ...state,
+    transition
+  }))
+}))
+
+// signal.register(compress({
+//   [navigatorEvents.push]: safe((state, event) => ({
+//     ...state,
+//     // transition: TRANSITIONS.PAGE_IN
+//   })),
+//   [navigatorEvents.pop]: safe((state, event) => ({
+//     ...state,
+//     // transition: TRANSITIONS.PAGE_OUT
+//   }))
+// }))
+
+signal.register(safe((state, event) => {
+  console.log(event, '::', state)
+}))
 
 class NavigationTransition extends Component {
   state = {
@@ -39,7 +57,7 @@ class NavigationTransition extends Component {
   componentDidMount () {
     this.dispose = signal.observe(state => {
       this.setState(s => state)
-    })
+    }, err => console.error(err))
   }
 
   componentWillUnmount () {
@@ -56,7 +74,7 @@ class NavigationTransition extends Component {
   )
 
   render () {
-    console.log('::', this.state)
+    // console.log('::', this.state)
     const {transition} = this.state
     return (
       <Navigator
@@ -68,9 +86,10 @@ class NavigationTransition extends Component {
         ComponentProps={{
           childFactory: childFactory(transition)
         }}
+        mapChildren={this.mapChildren}
       >
-        {React.Children.map(this.props.children, this.mapChildren)}
-        {/* {this.props.children} */}
+        {/* {React.Children.map(this.props.children, this.mapChildren)} */}
+        {this.props.children}
         {/* <PageTransition
           key='root'
           route='/'
@@ -90,25 +109,71 @@ class NavigationTransition extends Component {
   }
 }
 
+const push = ({route, transition = TRANSITIONS.PAGE_IN}) => event => {
+  signal.emit({
+    type: events.setTransition,
+    payload: {
+      transition
+    }
+  })
+  actions.push(route)
+}
+
+const back = ({transition = TRANSITIONS.PAGE_OUT}) => event => {
+  signal.emit({
+    type: events.setTransition,
+    payload: {
+      transition
+    }
+  })
+  actions.back()
+}
+
 const RootView = () => (
   <View data-name='root' isPadded style={{background: oc.gray[3], height: '100%', boxSizing: 'border-box'}}>
     <H1>Root</H1>
-    <Button primary onClick={e => actions.push('/middle')}>Settings</Button>
+    <Block tight>
+      <NavigationGroup isRounded>
+        <GroupButton onClick={push({
+          route: '/middle',
+          transition: TRANSITIONS.PAGE_IN
+        })}>To Middle</GroupButton>
+        <GroupButton onClick={push({
+          route: '/fade',
+          transition: TRANSITIONS.FADE
+        })}>To Fade-in View</GroupButton>
+      </NavigationGroup>
+    </Block>
   </View>
 )
 
 const MiddleView = () => (
   <View data-name='middle' isPadded style={{background: oc.red[2], height: '100%', boxSizing: 'border-box'}}>
     <H1>Middle</H1>
-    <Button primary onClick={e => actions.push('/child')}>Settings</Button>
-    <Button primary onClick={e => actions.back()}>Back</Button>
+    <Block tight>
+      <NavigationGroup isRounded>
+        <GroupButton onClick={push({
+          route: '/child'
+        })}>To Child</GroupButton>
+        <GroupButton onClick={back({})}>Back</GroupButton>
+      </NavigationGroup>
+    </Block>
   </View>
 )
 
 const ChildView = () => (
   <View data-name='child' isPadded style={{background: oc.green[1], height: '100%', boxSizing: 'border-box'}}>
     <H1>Child View</H1>
-    <Button primary onClick={e => actions.back()}>Back</Button>
+    <Button primary onClick={back({})}>Back</Button>
+  </View>
+)
+
+const FadeView = () => (
+  <View data-name='fader' isPadded style={{background: oc.blue[1], height: '100%', boxSizing: 'border-box'}}>
+    <H1>Fade Transition View</H1>
+    <Button primary onClick={back({
+      transition: TRANSITIONS.FADE
+    })}>Back</Button>
   </View>
 )
 
@@ -132,6 +197,7 @@ storiesOf('navigator', module)
         <RootView route='/' key='root' />
         <MiddleView route='/middle' key='middle' />
         <ChildView route='/child' key='child' />
+        <FadeView route='/fade' key='fade' />
       </NavigationTransition>
     </View>
   ))
