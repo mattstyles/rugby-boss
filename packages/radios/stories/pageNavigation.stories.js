@@ -34,17 +34,6 @@ signal.register(compress({
   }))
 }))
 
-// signal.register(compress({
-//   [navigatorEvents.push]: safe((state, event) => ({
-//     ...state,
-//     // transition: TRANSITIONS.PAGE_IN
-//   })),
-//   [navigatorEvents.pop]: safe((state, event) => ({
-//     ...state,
-//     // transition: TRANSITIONS.PAGE_OUT
-//   }))
-// }))
-
 signal.register(safe((state, event) => {
   console.log(event, '::', state)
 }))
@@ -74,7 +63,6 @@ class NavigationTransition extends Component {
   )
 
   render () {
-    // console.log('::', this.state)
     const {transition} = this.state
     return (
       <Navigator
@@ -88,22 +76,7 @@ class NavigationTransition extends Component {
         }}
         mapChildren={this.mapChildren}
       >
-        {/* {React.Children.map(this.props.children, this.mapChildren)} */}
         {this.props.children}
-        {/* <PageTransition
-          key='root'
-          route='/'
-          transition={transition}
-        >
-          <RootView />
-        </PageTransition>
-        <PageTransition
-          key='child'
-          route='/child'
-          transition={transition}
-        >
-          <ChildView />
-        </PageTransition> */}
       </Navigator>
     )
   }
@@ -182,18 +155,6 @@ storiesOf('navigator', module)
     <View flex>
       <AppHeader title='Page fade transition' />
       <NavigationTransition>
-        {/* <PageTransition
-          key='root'
-          route='/'
-        >
-          <RootView />
-        </PageTransition>
-        <PageTransition
-          key='child'
-          route='/child'
-        >
-          <ChildView />
-        </PageTransition> */}
         <RootView route='/' key='root' />
         <MiddleView route='/middle' key='middle' />
         <ChildView route='/child' key='child' />
