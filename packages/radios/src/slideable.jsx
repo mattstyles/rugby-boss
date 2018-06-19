@@ -7,6 +7,7 @@ import {noop} from 'lodash/fp'
 export class Slideable extends Component {
   static defaultProps = {
     isOpenThreshold: 64,
+    maxOpenThreshold: 192,
     autoActivate: true,
     onOpenLeft: noop,
     onOpenRight: noop
@@ -35,6 +36,16 @@ export class Slideable extends Component {
     return 0
   }
 
+  getPanDistance = deltaX => {
+    if (deltaX > this.props.maxOpenThreshold) {
+      return this.props.maxOpenThreshold
+    }
+    if (deltaX < -this.props.maxOpenThreshold) {
+      return -this.props.maxOpenThreshold
+    }
+    return deltaX
+  }
+
   fireActivationEvents = distance => {
     if (distance > 0) {
       this.props.onOpenLeft()
@@ -47,9 +58,10 @@ export class Slideable extends Component {
 
   onPan = event => {
     // console.log(event.deltaX)
+    const distance = this.getPanDistance(event.deltaX)
     this.setState(state => ({
       ...state,
-      distance: event.deltaX,
+      distance: distance,
       isPanning: true,
       isOpen: false
     }))
