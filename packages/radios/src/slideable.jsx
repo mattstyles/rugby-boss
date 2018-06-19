@@ -1,8 +1,17 @@
 
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
 
 export class Slideable extends Component {
+  static defaultProps = {
+    isOpenThreshold: 64
+  }
+
+  static propTypes = {
+    isOpenThreshold: PropTypes.number
+  }
+
   state = {
     distance: 0,
     isPanning: false,
@@ -10,17 +19,17 @@ export class Slideable extends Component {
   }
 
   getOpenDistance (deltaX) {
-    if (deltaX > 30) {
-      return 200
+    if (deltaX > this.props.isOpenThreshold) {
+      return this.props.isOpenThreshold
     }
-    if (deltaX < -30) {
-      return -200
+    if (deltaX < -this.props.isOpenThreshold) {
+      return -this.props.isOpenThreshold
     }
     return 0
   }
 
   onPan = event => {
-    // console.log(event)
+    // console.log(event.deltaX)
     this.setState(state => ({
       ...state,
       distance: event.deltaX,
