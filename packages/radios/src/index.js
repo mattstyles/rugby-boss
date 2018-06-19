@@ -14,6 +14,7 @@ export * from './icon'
 export * from './icons'
 export * from './taskbar'
 export * from './scrollable'
+export * from './slideable'
 
 export * from './type'
 
