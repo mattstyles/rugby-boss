@@ -2,14 +2,21 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
+import {noop} from 'lodash/fp'
 
 export class Slideable extends Component {
   static defaultProps = {
-    isOpenThreshold: 64
+    isOpenThreshold: 64,
+    autoActivate: true,
+    onOpenLeft: noop,
+    onOpenRight: noop
   }
 
   static propTypes = {
-    isOpenThreshold: PropTypes.number
+    isOpenThreshold: PropTypes.number,
+    autoActivate: PropTypes.bool,
+    onOpenLeft: PropTypes.func,
+    onOpenRight: PropTypes.func
   }
 
   state = {
@@ -18,7 +25,7 @@ export class Slideable extends Component {
     isOpen: true
   }
 
-  getOpenDistance (deltaX) {
+  getOpenDistance = deltaX => {
     if (deltaX > this.props.isOpenThreshold) {
       return this.props.isOpenThreshold
     }
@@ -26,6 +33,16 @@ export class Slideable extends Component {
       return -this.props.isOpenThreshold
     }
     return 0
+  }
+
+  fireActivationEvents = distance => {
+    if (distance > 0) {
+      this.props.onOpenLeft()
+    }
+
+    if (distance < 0) {
+      this.props.onOpenRight()
+    }
   }
 
   onPan = event => {
@@ -40,7 +57,13 @@ export class Slideable extends Component {
 
   onPanEnd = event => {
     // console.log('end', event)
-    const distance = this.getOpenDistance(event.deltaX)
+    let distance = this.getOpenDistance(event.deltaX)
+
+    if (this.props.autoActivate) {
+      this.fireActivationEvents(distance)
+      distance = 0
+    }
+
     this.setState(state => ({
       ...state,
       distance: distance,

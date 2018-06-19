@@ -1,5 +1,6 @@
 
 import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 import styled from 'styled-components'
 import oc from 'open-color'
 
@@ -18,7 +19,11 @@ storiesOf('slideable', module)
   .addDecorator(addonApp())
   .add('Slideable', () => (
     <View>
-      <Slideable>
+      <Slideable
+        snapToClose
+        onOpenLeft={action('left')}
+        onOpenRight={action('right')}
+      >
         <Item>
           <Text>Now that there is the Tec-9, a crappy spray gun from South Miami. This gun is advertised as the most popular gun in American crime.</Text>
         </Item>
