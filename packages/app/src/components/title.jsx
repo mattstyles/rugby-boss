@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Title = styled.h1`
   font-size: 2.4rem;
-  color: ${props => props.theme.colors.main || 'rgb(64, 64, 64)'};
+  color: ${props => props.theme.color.primary || 'rgb(64, 64, 64)'};
 `
 Title.propTypes = {
   text: PropTypes.string
@@ -24,7 +24,7 @@ Heading.defaultProps = {
 
 export const H1 = styled(Heading)`
   font-size: 3.2rem;
-  font-family: 'monospace';
+  font-family: monospace;
 `
 
 export default Title
