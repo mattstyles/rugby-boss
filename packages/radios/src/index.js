@@ -35,5 +35,8 @@ export const setGlobalStyling = () => {
       -moz-osx-font-smoothing: grayscale;
       display: flex;
     }
+    .main {
+      display: flex;
+    }
   `
 }
