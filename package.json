@@ -1,34 +1,28 @@
 {
   "name": "@rm/monorepo",
-  "version": "1.0.0",
+  "private": true,
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "setup": "lerna bootstrap --concurrency=1"
+    "precommit": "lint-staged",
+    "setup": "lerna bootstrap --concurrency=1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Matt Styles",
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "standard"
+    ],
+    "*.jsx": [
+      "standard"
+    ]
+  },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.3.1",
-    "@storybook/react": "^3.3.1",
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.1.2",
-    "babel-plugin-styled-components": "^1.4.0",
-    "babel-plugin-transform-react-require": "^1.0.1",
-    "babel-preset-env": "^1.6.1",
     "husky": "^0.14.3",
-    "lerna": "^2.5.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "rimraf": "^2.6.2",
-    "standard": "^10.0.3"
-  },
-  "dependencies": {
-    "classnames": "^2.2.5",
-    "open-color": "^1.6.2",
-    "prop-types": "^15.6.0",
-    "shevyjs": "^1.1.0",
-    "styled-components": "^2.4.0"
+    "lerna": "^2.11.0",
+    "lint-staged": "^7.0.0",
+    "standard": "^11.0.0"
   }
 }
